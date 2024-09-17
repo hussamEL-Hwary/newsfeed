@@ -32,8 +32,8 @@ This API allows users to create, update, delete, and retrieve posts. It ensures 
 1. **Clone the repository**:
 
     ```bash
-    git clone https://github.com/yourusername/your-repo.git
-    cd your-repo
+    git clone https://github.com/hussamEL-Hwary/newsfeed.git
+    cd newsfeed
     ```
 
 2. **Create a virtual environment**:
