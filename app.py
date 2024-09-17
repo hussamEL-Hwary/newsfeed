@@ -63,5 +63,14 @@ def update_post(post_id):
     return jsonify({"message": "Post updated successfully"})
 
 
+@app.route('/posts/<int:post_id>', methods=['DELETE'])
+def delete_post(post_id):
+    sql = "DELETE FROM Post WHERE post_id = %s"
+    values = (post_id,)
+    cursor.execute(sql, values)
+    db.commit()
+    return jsonify({"message": "Post deleted successfully"})
+
+
 if __name__ == '__main__':
     app.run(debug=True)
