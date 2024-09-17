@@ -72,5 +72,16 @@ def delete_post(post_id):
     return jsonify({"message": "Post deleted successfully"})
 
 
+@app.route('/posts/<int:post_id>', methods=['GET'])
+def get_post(post_id):
+    sql = "SELECT * FROM Post WHERE post_id = %s"
+    values = (post_id,)
+    cursor.execute(sql, values)
+    post = cursor.fetchone()
+    if post:
+        return jsonify(post)
+    return jsonify({"message": "Post not found"}), 404
+
+
 if __name__ == '__main__':
     app.run(debug=True)
