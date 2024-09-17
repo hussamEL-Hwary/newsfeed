@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from marshmallow import ValidationError
 
-from serializers import post_schema
+from serializers import post_schema, post_update_schema
 
 load_dotenv()
 app = Flask(__name__)
@@ -45,6 +45,22 @@ def add_post():
     cursor.execute(sql, values)
     db.commit()
     return jsonify({"message": "Post added successfully", "post_id": cursor.lastrowid}), 201
+
+
+# Endpoint to update post
+@app.route('/posts/<int:post_id>', methods=['PUT'])
+def update_post(post_id):
+    json_data = request.json
+    try:
+        data = post_update_schema.load(json_data)
+    except ValidationError as err:
+        return jsonify({"errors": err.messages}), 400
+
+    sql = "UPDATE Post SET content = %s WHERE post_id = %s"
+    values = (data['content'], post_id)
+    cursor.execute(sql, values)
+    db.commit()
+    return jsonify({"message": "Post updated successfully"})
 
 
 if __name__ == '__main__':

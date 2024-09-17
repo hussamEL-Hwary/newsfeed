@@ -8,3 +8,10 @@ class PostSchema(Schema):
 
 # Initialize the schema
 post_schema = PostSchema()
+
+
+class PostUpdateSchema(Schema):
+    content = fields.Str(required=True, validate=validate.Length(max=255))
+
+
+post_update_schema = PostUpdateSchema()
